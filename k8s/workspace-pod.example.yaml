@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: automl-workspace-example
+  labels:
+    app.kubernetes.io/name: automl-workspace
+spec:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+    runAsGroup: 1001
+    fsGroup: 1001
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: workspace
+      image: automl/workspace:py3.12-ml-standard
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: WORKSPACE_IDE
+          value: jupyter
+        - name: WORKSPACE_AUTH_MODE
+          value: auto
+        - name: WORKSPACE_DIR
+          value: /workspace
+      ports:
+        - name: jupyter
+          containerPort: 8888
+        - name: code-server
+          containerPort: 8080
+      resources:
+        requests:
+          cpu: "1"
+          memory: 2Gi
+        limits:
+          cpu: "2"
+          memory: 4Gi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+      volumeMounts:
+        - name: workspace
+          mountPath: /workspace
+  volumes:
+    - name: workspace
+      persistentVolumeClaim:
+        claimName: REPLACE_WITH_USER_PVC

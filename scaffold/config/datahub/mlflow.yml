@@ -1,0 +1,13 @@
+source:
+  type: mlflow
+  config:
+    tracking_uri: ${MLFLOW_TRACKING_URI}
+    registry_uri: ${MLFLOW_TRACKING_URI}
+    base_external_url: http://localhost:5000
+    materialize_dataset_inputs: true
+    source_mapping_to_platform:
+      s3: s3
+sink:
+  type: datahub-rest
+  config:
+    server: ${DATAHUB_GMS_URL}

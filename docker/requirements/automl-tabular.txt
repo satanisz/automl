@@ -1,0 +1,17 @@
+jupyterlab>=4,<5
+ipykernel>=6.25,<8
+ipywidgets
+jupyterlab-git
+numpy
+pandas>=2,<3
+pyarrow
+scikit-learn
+torch
+torchvision
+mlflow==3.14.0
+autogluon.tabular[lightgbm,catboost]==1.5.0
+PyYAML
+tabulate
+boto3
+pandera[pandas]>=0.26,<0.29
+acryl-datahub[s3]==1.7.0
